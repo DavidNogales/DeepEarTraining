@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  jupyter-lab:
+    build: .
+    ports:
+      - 8888:8888
+    volumes:
+      - ./notebooks:/tf-env
+    entrypoint: 
+      jupyter lab --ip='0.0.0.0' --allow-root --no-browser 
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
