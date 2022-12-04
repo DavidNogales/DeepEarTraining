@@ -1,4 +1,8 @@
-# Project Objective
+#DeepEarTraining
+
+A Deep Learning Based Tool for Ear Training
+
+## Project Objective
 
 1. Train a model that generates a meaningful exercise of melodic dictation
     - A meaningful exercise should follow basic harmony rules, a basic chord progession and be 8 bars long.
