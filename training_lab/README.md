@@ -52,9 +52,5 @@ A Deep Learning Based Tool for Ear Training
 5. Deploy model
 
 
-## Developing the Interface
 
-1. Figma prototype
-2. Research technology stacks
-3. ????
 

@@ -7,12 +7,12 @@ services:
     volumes:
       - ./notebooks:/tf-env
     entrypoint: 
-      jupyter lab --ip='0.0.0.0' --allow-root --no-browser 
+      jupyter lab --ip='0.0.0.0' --allow-root --no-browser
     deploy:
       resources:
         reservations:
           devices:
             - driver: nvidia
-              count: 1
+              device_ids: ['0']
               capabilities: [gpu]
 
