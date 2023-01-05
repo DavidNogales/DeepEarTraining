@@ -1,5 +1,7 @@
 FROM tensorflow/tensorflow:latest-gpu
 
+RUN apt-get update && apt-get upgrade -y
+
 WORKDIR /tf-env
 
 COPY requirements.txt requirements.txt
