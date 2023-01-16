@@ -5,7 +5,7 @@ services:
     ports:
       - 8888:8888
     volumes:
-      - ./notebooks:/tf-env
+      - ./:/tf-env
     entrypoint: 
       jupyter lab --ip='0.0.0.0' --allow-root --no-browser
     deploy:
