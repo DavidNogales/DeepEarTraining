@@ -1,0 +1,38 @@
+#FROM node:18-alpine3.15
+#WORKDIR /astro_workspace
+#COPY ./deep-ear-app/package.json /astro_workspace/package.json
+#RUN npm init --yes
+#RUN npm install
+#RUN cd /usr
+#RUN npm update
+#RUN npm install astro
+#RUN npx astro add tailwind
+#RUN npx astro add mdx
+#EXPOSE 3000
+
+
+#FROM node:18-alpine3.15 AS build
+#WORKDIR /astro_workspace
+#COPY ./deep-ear-app .
+#COPY package.json .
+#RUN npm install
+#RUN npm run build
+
+#FROM httpd:2.4 AS runtime
+#COPY --from=build /astro_workspace/dist /usr/local/apache2/htdocs/
+#EXPOSE 80
+
+# ---> Build stage
+FROM node:18-bullseye as node-build
+
+ENV NODE_ENV=production
+WORKDIR /usr/src/app
+COPY . /usr/src/app/
+RUN yarn install --silent --production=true --frozen-lockfile
+RUN yarn build --silent
+
+# ---> Serve stage
+FROM nginx:stable-alpine
+COPY --from=node-build /usr/src/app/dist /usr/share/nginx/html
+
+EXPOSE 80

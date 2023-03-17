@@ -1,12 +1,13 @@
 version: '3.9'
 services:
-  astrojs-ui:
-    build:
-      context: ./client
+  fastapi:
+    build: ./server
+    entrypoint: uvicorn main:app --host 0.0.0.0 --reload # Remove reload for production
     ports:
-      - "3000:3000"
-    #stdin_open: true
+      - 8000:8000
     volumes:
-       - ./client:/astro_workspace
-    command: npm run 
+      - ./server:/server_code
+    #restart: on-failure
+    
+      
 
