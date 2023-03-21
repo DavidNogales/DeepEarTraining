@@ -1,15 +1,18 @@
 import { defineConfig } from 'astro/config';
 
+import react from "@astrojs/react";
+
 // https://astro.build/config
 export default defineConfig({
-    server: {
-        host: "0.0.0.0",
-        hmr: {
-        clientPort: import.meta.env.OUTER_PORT_FRONTEND,
-        },
-        port: import.meta.env.INNER_PORT_FRONTEND_DEV, 
-        watch: {
-        usePolling: true,
-        },
+  server: {
+    host: true,
+    port: 8015,
+    hmr: {
+      clientPort: 9026
+    },
+    watch: {
+      usePolling: true
     }
+  },
+  integrations: [react()]
 });

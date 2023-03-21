@@ -1,8 +1,9 @@
 FROM node:lts
-WORKDIR /app
+WORKDIR /usr/src/app/
 COPY package*.json ./
 RUN npm install
-COPY . .
-CMD ["npm", "run", "dev","--", "--port ", "3000", "--host"]
-
-EXPOSE 3000
+#RUN npm install abcjs
+#RUN npx astro add react
+#COPY . .
+#CMD ["npm", "run", "dev","--", "--port ", "3000", "--host"]
+CMD ["npm", "run", "dev"]

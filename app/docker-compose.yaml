@@ -1,12 +1,12 @@
 version: '3.9'
 services:
   fastapi:
-    build: ./server
+    build: ./deep-ear-server
     entrypoint: uvicorn main:app --host 0.0.0.0 --reload # Remove reload for production
     ports:
       - 8000:8000
     volumes:
-      - ./server:/server_code
+      - ./deep-ear-server:/server_code
     #restart: on-failure
     
       
