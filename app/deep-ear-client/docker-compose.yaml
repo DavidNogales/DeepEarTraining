@@ -4,7 +4,7 @@ services:
     build:
       context: ./
     ports:
-      - "9026:8015"
+      - "8015:8015"
     #stdin_open: true
     volumes:
        - .:/usr/src/app/
