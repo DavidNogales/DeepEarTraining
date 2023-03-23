@@ -1,0 +1,31 @@
+---
+import logo from '../images/logo.svg';
+
+---
+<header class="header">
+    <div class="container flex justify-between px-4">
+        <div class="logo-container">
+            <a class="flex justify-evenly" href="/">
+                <img src={logo} alt="DeepEar Training Logo." height="30px" width="30px"/>
+                <h2 class="font-bold text-lg">DeepEarTraining</h2>
+            </a>
+        </div>
+        
+        <nav class="flex space-x-4">
+
+            <ul><a href="/">Home</a></ul>
+            <ul><a href="/teacher/">Teacher</a></ul>
+            <ul><a href="/student/">Student</a></ul>
+        </nav>
+    </div>
+</header>
+
+<style>
+    .header{
+        margin: 0em 0 1em;
+    }
+    .container{
+        background-color: rgb(199, 199, 202);
+        margin: 0.5em 0;
+    }
+</style>

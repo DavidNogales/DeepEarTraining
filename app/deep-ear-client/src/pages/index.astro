@@ -1,23 +1,32 @@
 ---
-
+import Layout from "../layouts/Layout.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro ABC!!!! also with react!</h1>
+<Layout>
+	<h1>Welcome To Astro!</h1>
+		<h2>ABC Example</h2>
 		<div id="paper"></div>
+		<h2>Using Axios for retrieving data</h2>
+		<div id="abc_text"></div>
+		<div id="sheet"></div>
 	</body>
 	<script>
 		import abcjs from "abcjs";
+		import axios from "axios";
+		const url = "http://localhost:8000"
 		var visualOptions = {  };
-		var abcString = "X:1\nK:D\nDD AA|BBA2|\n";
+		var abcString = "X:1\nT:Speed the Plough\nM:4/4\nC:Trad.\nK:G\n|:GABc dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|\n  GABc dedB|dedB dedB|c2ec B2dB|A2F2 G4:|\n|:g2gf gdBd|g2f2 e2d2|c2ec B2dB|c2A2 A2df|\n  g2gf g2Bd|g2f2 e2d2|c2ec B2dB|A2F2 G4:|\n";
 		var visualObj = abcjs.renderAbc("paper", abcString, visualOptions);	
+		console.log("Hi!")
+
+		const getExercise = ()=>{
+		 	axios.get(`${url}/`).then(response =>{
+				console.log(response)
+				var abcNewString=response.data.data[0].body
+				abcjs.renderAbc("sheet", abcNewString, visualOptions);	
+			})
+		}
+		getExercise()
 	</script>
-</html>
+
+</Layout>

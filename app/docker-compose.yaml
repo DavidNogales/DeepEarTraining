@@ -8,6 +8,21 @@ services:
     volumes:
       - ./deep-ear-server:/server_code
     #restart: on-failure
-    
-      
+    networks:
+      - deep-ear-net
+  astrojs-ui:
+    build: ./deep-ear-client
+    ports:
+      - "8015:8015"
+    #stdin_open: true
+    volumes:
+      - ./deep-ear-client:/usr/src/app/
+      - /usr/src/app/node_modules
+    networks:
+      - deep-ear-net
+    depends_on:
+      - fastapi
 
+networks:
+  deep-ear-net:
+      driver: bridge
