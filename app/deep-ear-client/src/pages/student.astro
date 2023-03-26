@@ -4,4 +4,77 @@ import Layout from "../layouts/Layout.astro";
 
 <Layout title="Student View">
     <p>This is the Student view!</p>
+    <div class="flex">
+        <div class="col-span-8">
+            <textarea id="abc" class="col-span-8"></textarea>
+        </div>
+        <div  class="col-span-4">
+            <div id="paper"></div>
+        </div>
+    </div>
+    
+    <div class="buttons flex justifiy-center">
+        
+        <div id="audio">
+        </div>
+        <button class="activate-audio">Activate Audio</button>
+        <button class="start">Start</button>
+        <button class="show-editor">Show Editor</button>
+        <div id="warnings"></div>    
+    </div>
+    
+    <script>
+		import abcjs from "abcjs";
+        var abcString = "X:1\nT:Speed the Plough\nM:4/4\nC:Trad.\nK:G\n|:GABc dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|\n  GABc dedB|dedB dedB|c2ec B2dB|A2F2 G4:|\n|:g2gf gdBd|g2f2 e2d2|c2ec B2dB|c2A2 A2df|\n  g2gf g2Bd|g2f2 e2d2|c2ec B2dB|A2F2 G4:|\n";
+        var visualOptions = { responsive: 'resize' };
+        var visualObj = abcjs.renderAbc("paper", abcString, visualOptions);
+        var synthControl = new abcjs.synth.SynthController();
+
+        document.querySelector(".activate-audio").addEventListener("click", activate);
+        function activate() {    
+            console.log("Activate audio clicked!")
+            if (abcjs.synth.supportsAudio()) {
+                var audioParams = { chordsOff: true };
+                console.log("Supports audio!")
+                var createSynth = new abcjs.synth.CreateSynth();
+                createSynth.init({ visualObj: visualObj[0] }).then(function () {
+                    synthControl.setTune(visualObj[0], false, audioParams).then(function () {
+                        console.log("Audio successfully loaded.")
+                        
+                    }).catch(function (error) {
+                        console.warn("Audio problem:", error);
+                    });
+                }).catch(function (error) {
+                    console.warn("Audio problem:", error);
+                });
+            } else {
+                console.log("audio is not supported on this browser");
+            };
+        }    
+        document.querySelector(".start").addEventListener("click", playTune);
+        function playTune(){
+            console.log("play tune!")
+            synthControl.play()
+        }
+        
+        document.querySelector(".show-editor").addEventListener("click", showEditor);
+        function showEditor(){
+            console.log("Show Editor!")
+            var abc_editor = new abcjs.Editor("abc", { 
+                canvas_id: "paper", 
+                warnings_id:"warnings" 
+            });
+            document.getElementById("abc").innerHTML = abcString
+        }
+
+	</script>
 </Layout>
+
+<style>
+    .abcjs-highlight {
+    fill: #0a9ecc;
+    }
+    .abcjs-cursor {
+    stroke: red;
+    }
+</style>
