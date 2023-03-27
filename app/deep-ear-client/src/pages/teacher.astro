@@ -4,4 +4,37 @@ import Layout from "../layouts/Layout.astro";
 
 <Layout title="Teacher View">
     <p>This is the teacher view!</p>
+    <section>
+        <div id="notation"></div>
+        <textarea id="notation-input" ></textarea>
+        <button id="play-button">Play</button>
+        <button id="pause-button">Pause</button>
+    </section>
+
+    <script>
+        import abcjs from "abcjs";
+
+
+        const abc = `X:1
+        T:Example
+        M:4/4
+        C:Trad.
+        K:G
+        |:GABc dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|
+        GABc dedB|dedB dedB|c2ec B2dB|A2F2 G4:|
+        |:g2gf gdBd|g2f2 e2d2|c2ec B2dB|c2A2 A2df|
+        g2gf g2Bd|g2f2 e2d2|c2ec B2dB|A2F2 G4:|`;
+
+        const notationInput = document.querySelector('#notation-input');
+        const notation = document.querySelector('#notation');
+
+        notationInput.value = abc;
+        abcjs.renderAbc(notation, abc);
+
+        notationInput.addEventListener('input', () => {
+            abcjs.renderAbc(notation, notationInput.value);
+        });
+    </script>
 </Layout>
+
+

@@ -56,7 +56,6 @@ import Layout from "../layouts/Layout.astro";
             console.log("play tune!")
             synthControl.play()
         }
-        
         document.querySelector(".show-editor").addEventListener("click", showEditor);
         function showEditor(){
             console.log("Show Editor!")
@@ -64,9 +63,14 @@ import Layout from "../layouts/Layout.astro";
                 canvas_id: "paper", 
                 warnings_id:"warnings" 
             });
-            document.getElementById("abc").innerHTML = abcString
+            const textarea = document.querySelector('#abc');
+            textarea.addEventListener('input', () => {
+                abc_editor.fireChanged();
+            });
+            textarea.innerHTML = abcString
+            abc_editor.fireChanged();
         }
-
+        
 	</script>
 </Layout>
 
