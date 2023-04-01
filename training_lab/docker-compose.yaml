@@ -7,7 +7,7 @@ services:
     volumes:
       - ./:/pt-env
     entrypoint: 
-      jupyter lab --ip='0.0.0.0' --allow-root --no-browser
+      jupyter lab --ip='0.0.0.0' --allow-root --no-browser --ServerApp.allow_origin='*' --ServerApp.allow_remote_access=1
     deploy:
       resources:
         reservations:
