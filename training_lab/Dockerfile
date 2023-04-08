@@ -1,6 +1,6 @@
 #FROM tensorflow/tensorflow:latest-gpu
 #FROM huggingface/transformers-tensorflow-gpu:4.27.3
-FROM huggingface/transformers-pytorch-gpu:4.27.3
+FROM huggingface/transformers-pytorch-gpu:4.27.4
 RUN apt-get update && apt-get upgrade -y
 
 #WORKDIR /tf-env
