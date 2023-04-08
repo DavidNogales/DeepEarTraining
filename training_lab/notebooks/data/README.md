@@ -1,6 +1,8 @@
-# Transposed Dataset
+# Datasets
 
-Transposed by hand using [abcjs](https://paulrosen.github.io/abcjs/examples/output-transpose.html).
+The original dataset was taken from the following repository: [jukedeck/nottingham-dataset](https://github.com/jukedeck/nottingham-dataset).
+
+The augmented datasets were transposed by hand using [abcjs](https://paulrosen.github.io/abcjs/examples/output-transpose.html).
 
 ## Folder Structure and File Description
 
@@ -13,4 +15,6 @@ Transposed by hand using [abcjs](https://paulrosen.github.io/abcjs/examples/outp
   - **dataset_0.abc**: cleaned dataset from original dataset. Is essentially the same file as `clean_original_data.abc` but copied here for easier parsing.
   - **dataset_X.abc**: X number of semitones transposed **upwards**.
   - **dataset_minX.abc**: X number of semitones transposed **downwards**.
+- **final_dataset**
   - **clean_augmented_data.pkl**: Has the same kind of data as `clean_original_training_data.pkl` but extracted from all the transposed songs.
+  - **clean_augmented_data.abc**: Same format as `clean_original_training_data.abc` but extracted from all the transposed songs.

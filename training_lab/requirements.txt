@@ -7,3 +7,4 @@ seaborn==0.12.1
 tqdm==4.65.0
 wandb==0.14.2
 tiktoken==0.3.3
+python-dotenv==1.0.0
