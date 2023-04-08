@@ -75,6 +75,7 @@ else:
 
 # encode the beginning of the prompt
 if start.startswith('FILE:'):
+    print(start)
     with open(start[5:], 'r', encoding='utf-8') as f:
         start = f.read()
 start_ids = encode(start)
