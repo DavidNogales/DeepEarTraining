@@ -3,5 +3,6 @@ training_lab/.ipynb_checkpoints/
 training_lab/notebooks/nanoGPT/config/.ipynb_checkpoints/
 training_lab/notebooks/data/Nottingham*
 training_lab/notebooks/nanoGPT/out-shakespeare-char/*.pt
+training_lab/notebooks/nanoGPT/out-abc-char/*.pt
 .env
 wandb
