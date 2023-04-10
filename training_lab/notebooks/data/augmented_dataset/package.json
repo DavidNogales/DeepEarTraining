@@ -6,7 +6,6 @@
         "start": "node transposer.js"
     },
     "dependencies": {
-      "abcjs": "^6.1.9",
-      "jsdom": "^18.1.1"
+      "abc-notation-transposition": "1.0.3"
     }
 }
