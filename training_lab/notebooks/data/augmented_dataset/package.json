@@ -1,0 +1,12 @@
+{
+    "name": "transposer-app",
+    "version": "1.0.0",
+    "main": "transposer.js",
+    "scripts": {
+        "start": "node transposer.js"
+    },
+    "dependencies": {
+      "abcjs": "^6.1.9",
+      "jsdom": "^18.1.1"
+    }
+}

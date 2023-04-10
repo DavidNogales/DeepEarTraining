@@ -1,0 +1,7 @@
+version: '3.9'
+services:
+  tranposer-app:
+    build: .
+    volumes:
+      - .:/usr/src/app/
+      - /usr/src/app/node_modules
