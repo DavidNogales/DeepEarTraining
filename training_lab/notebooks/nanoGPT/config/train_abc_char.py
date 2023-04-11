@@ -2,9 +2,9 @@
 # good for debugging and playing on macbooks and such
 
 out_dir = 'out-abc-char'
-eval_interval = 25 # keep frequent because we'll overfit
+eval_interval = 10 # keep frequent because we'll overfit
 eval_iters = 500
-log_interval = 20 # don't print too too often
+log_interval = 5 # don't print too too often
 
 # we expect to overfit on this small dataset, so only save when val improves
 always_save_checkpoint = False
