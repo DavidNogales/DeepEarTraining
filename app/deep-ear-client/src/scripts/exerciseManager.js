@@ -16,5 +16,6 @@ export async function generateExercise(exerciseHeader) {
       }
     const lastExercise = await getExercise(postSchema);
     //abcjs.renderAbc(divID, abcNewString, visualOptions);
-    console.log(lastExercise);
+    console.log(typeof(lastExercise));
+    return lastExercise
 }

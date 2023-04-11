@@ -94,26 +94,27 @@ g2gf g2Bd|g2f2 e2d2|c2ec B2dB|A2F2 G4:|`;
         const notationInput = document.querySelector('#notation-input');
         const notation = document.querySelector('#notation');
 
-        notationInput.value = abc;
-        abcjs.renderAbc(notation, abc);
+        //notationInput.value = abc;
+        //abcjs.renderAbc(notation, abc);
 
-        notationInput.addEventListener('input', () => {
-            abcjs.renderAbc(notation, notationInput.value);
-        });
-
-
+        //notationInput.addEventListener('input', () => {
+        //    abcjs.renderAbc(notation, notationInput.value);
+        //});
+        
+        
         const textarea = document.querySelector("textarea");
         const maxHeight = 400; // specify the maximum height in pixels
-
+        
         const setTextAreaHeight = ()=>{
             textarea.style.height = "auto";
             textarea.style.height = Math.min(textarea.scrollHeight, maxHeight) + "px";
         }
         setTextAreaHeight()
-
         textarea.addEventListener("input",setTextAreaHeight );
 
+
     </script>
+    
     <script client:load>
         const svg = document.querySelector("#notation svg");
         if (svg) {
@@ -128,7 +129,23 @@ g2gf g2Bd|g2f2 e2d2|c2ec B2dB|A2F2 G4:|`;
 
     <script >
         import {generateExercise} from "../scripts/exerciseManager"
-        generateExercise('header')
+        import {renderAbc,playTune} from "../scripts/exercisePlayer"
+        
+        let new_song = await generateExercise('header')
+
+        const notation = document.querySelector('#notation');
+        renderAbc(notation,new_song)
+        console.log("rendered song")
+        const playButton = document.querySelector("#play-button");
+        playButton.addEventListener("click",() => {
+            console.log("play clicked!")
+            playTune() 
+        });
+        const pauseButton = document.querySelector("#pause-button");
+        pauseButton.addEventListener("click",() =>{
+            console.log("pause clicked!")    
+            playTune() 
+        });
     </script>
 </Layout>
 
@@ -147,6 +164,7 @@ g2gf g2Bd|g2f2 e2d2|c2ec B2dB|A2F2 G4:|`;
     #notation{
         background-color: beige;
         overflow-x: auto;
+        overflow-y: auto;
         width: 100%;
     }
 
