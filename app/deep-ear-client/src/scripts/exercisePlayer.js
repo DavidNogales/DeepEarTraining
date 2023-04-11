@@ -4,7 +4,7 @@ var abcString = "X:1\nT:Speed the Plough\nM:4/4\nC:Trad.\nK:G\ng2gf g2Bd|g2f2 e2
 var visualOptions = { responsive: 'resize' };
 var synthControl = new abcjs.synth.SynthController();
 
-export function renderAbc(divID,abc_song){
+export function renderAbcSong(divID,abc_song){
     console.log(divID)
     let visualObj = abcjs.renderAbc(divID, abc_song, visualOptions);
     console.log("rendered song")
@@ -33,12 +33,7 @@ function activate_sound(tunes) {
     };
 }    
 
-export function playTune(){
-    console.log("play tune!")
+export function playPauseTune(){
+    console.log("play or pause tune!")
     synthControl.play()
-}
-
-export function stopTune(){
-    console.log("stop tune!")
-    synthControl.stop()
 }
