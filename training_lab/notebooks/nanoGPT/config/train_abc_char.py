@@ -14,12 +14,12 @@ wandb_project = 'abc-char'
 wandb_run_name = 'mini-char-gpt'
 
 dataset = 'abc_char'
-batch_size = 64
+batch_size = 32
 block_size = 512 # context of up to 512 previous characters
 
 # baby GPT model :)
-n_layer = 8
-n_head = 6
+n_layer = 12
+n_head = 12
 n_embd = 384
 dropout = 0.2
 
