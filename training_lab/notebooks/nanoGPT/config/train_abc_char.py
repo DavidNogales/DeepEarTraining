@@ -11,15 +11,15 @@ always_save_checkpoint = False
 
 wandb_log = True # override via command line if you like
 wandb_project = 'abc-char'
-wandb_run_name = 'mini-char-gpt'
+wandb_run_name = 'mini-char-gpt-bt-84'
 
 dataset = 'abc_char'
-batch_size = 32
+batch_size = 84
 block_size = 512 # context of up to 512 previous characters
 
 # baby GPT model :)
 n_layer = 12
-n_head = 12
+n_head = 8
 n_embd = 384
 dropout = 0.2
 
