@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const url = "http://localhost:8000/exercises"
+const base_url = import.meta.env.API_URL;
+const url = base_url+"/exercises"
 console.log("Hi! local script loaded!")
 
 async function getExercise(data) {
