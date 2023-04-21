@@ -1,6 +1,8 @@
 import axios from "axios";
 
 const base_url = import.meta.env.API_URL;
+console.log("base_URL:");
+console.log(base_url);
 const url = base_url+"/exercises"
 console.log("Hi! local script loaded!")
 
