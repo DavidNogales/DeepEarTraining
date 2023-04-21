@@ -13,7 +13,7 @@ import Layout from "../layouts/Layout.astro";
 	<script>
 		import abcjs from "abcjs";
 		import axios from "axios";
-		const url = import.meta.env.VITE_API_URL;
+		const url = import.meta.env.PUBLIC_API_URL;
 		console.log("INDEX base url: "+url)
 		var visualOptions = {  };
 		var abcString = "X:1\nT:Speed the Plough\nM:4/4\nC:Trad.\nK:G\n|:GABc dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|\n  GABc dedB|dedB dedB|c2ec B2dB|A2F2 G4:|\n|:g2gf gdBd|g2f2 e2d2|c2ec B2dB|c2A2 A2df|\n  g2gf g2Bd|g2f2 e2d2|c2ec B2dB|A2F2 G4:|\n";
