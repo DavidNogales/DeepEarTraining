@@ -4,7 +4,8 @@ training_lab/notebooks/nanoGPT/config/.ipynb_checkpoints/
 training_lab/notebooks/data/Nottingham*
 training_lab/notebooks/nanoGPT/out-shakespeare-char/*.pt
 training_lab/notebooks/nanoGPT/out-abc-char/*.pt
-training_lab/notebooks/nanoGPT/older_ckpt/*
+training_lab/notebooks/nanoGPT/older_ckpt/*/*.pt
+training_lab/notebooks/nanoGPT/older_ckpt/*/*.pkl
 .env*
 wandb
 training_lab/notebooks/ANTLRTokenizer
