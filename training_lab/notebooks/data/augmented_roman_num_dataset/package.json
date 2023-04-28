@@ -1,0 +1,11 @@
+{
+    "name": "transposer-app",
+    "version": "1.0.0",
+    "main": "transposer.js",
+    "scripts": {
+        "start": "node transposer.js"
+    },
+    "dependencies": {
+      "abc-notation-transposition": "1.0.3"
+    }
+}
