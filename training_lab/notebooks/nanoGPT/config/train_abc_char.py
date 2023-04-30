@@ -11,7 +11,7 @@ always_save_checkpoint = False
 
 wandb_log = True # override via command line if you like
 wandb_project = 'abc-char'
-wandb_run_name = 'mini-char-gpt-hd-8-ly-12-bt4-ovrf'
+wandb_run_name = 'mini-char-gpt-hd-8-ly-12-bt4-rn-data-ovrf'
 
 dataset = 'abc_char'
 batch_size = 4
