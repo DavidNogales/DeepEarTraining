@@ -13,7 +13,7 @@ wandb_log = True # override via command line if you like
 wandb_project = 'abc-char'
 wandb_run_name = 'mini-char-gpt-hd-8-ly-12-bt4-rn-data-ovrf'
 
-dataset = 'abc_char'
+dataset = 'abc_roman_num_char'
 batch_size = 4
 block_size = 512 # context of up to 512 previous characters
 
