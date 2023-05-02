@@ -6,6 +6,8 @@ training_lab/notebooks/nanoGPT/out-shakespeare-char/*.pt
 training_lab/notebooks/nanoGPT/out-abc-char/*.pt
 training_lab/notebooks/nanoGPT/older_ckpt/*/*.pt
 training_lab/notebooks/nanoGPT/older_ckpt/*/*.pkl
+training_lab/notebooks/nanoGPT/best_models/*/*.pt
+training_lab/notebooks/nanoGPT/best_models/*/*.pkl
 .env*
 wandb
 training_lab/notebooks/ANTLRTokenizer
