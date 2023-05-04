@@ -49,7 +49,7 @@ const meter = []
                 </select>
             </div>
             <div class="flex items-center justify-start">
-                <button id="generate-button" class="bg-persian-pink-500 hover:bg-persian-pink-700 text-white font-bold py-2 px-4 border bg-persian-pink-700 rounded">
+                <button id="generate-button" class="bg-persian-pink-500 hover:bg-persian-pink-700 text-white font-bold py-2 px-4 border bg-persian-pink-800 rounded">
                   Generate
                 </button>
             </div>   
@@ -94,9 +94,9 @@ const meter = []
 
     <script >
         import {generateExercise} from "../scripts/exerciseManager"
-        import {renderAbcSong,playPauseTune,setNewEditor} from "../scripts/exercisePlayer"
-        import abcjs from "abcjs";
+        import {Player} from "../scripts/exercisePlayer"
 
+        let myPlayer = new Player()
 
         const textarea = document.querySelector("textarea");
         const maxHeight = 400; // specify the maximum height in pixels
@@ -106,17 +106,19 @@ const meter = []
             textarea.style.height = Math.min(textarea.scrollHeight, maxHeight) + "px";
         }
 
-        console.log("asdasd")
-        setNewEditor('notation-input','notation','warnings')
+        myPlayer.setNewEditor('notation-input','notation','warnings')
 
         textarea.addEventListener("input",setTextAreaHeight);
 
         const generateButton = document.querySelector("#generate-button");
         generateButton.addEventListener("click", async ()=>{
-            console.log("generating exercise!")    
+            console.log("generating exercise!")
+            myPlayer.pauseTune()
+            
             let new_song = await generateExercise('header')
             const notation = document.querySelector('#notation');
-            renderAbcSong(notation,new_song)
+            myPlayer = new Player()
+            myPlayer.renderAbcSong(notation,new_song)
             
             const notationInput = document.querySelector('#notation-input');
             notationInput.value = new_song;
@@ -139,12 +141,12 @@ const meter = []
         const playButton = document.querySelector("#play-button");
         playButton.addEventListener("click",() => {
             console.log("play clicked!")
-            playPauseTune() 
+            myPlayer.playTune() 
         });
         const pauseButton = document.querySelector("#pause-button");
         pauseButton.addEventListener("click",() =>{
             console.log("pause clicked!")    
-            playPauseTune() 
+            myPlayer.pauseTune() 
         });
 
         
@@ -180,7 +182,6 @@ const meter = []
         padding-left: 1em;
         padding-right: 1em;
         background-color: blueviolet;
-         resize: none;
     }
 
     #music-fields{

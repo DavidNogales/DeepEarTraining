@@ -44,7 +44,7 @@ import Layout from "../layouts/Layout.astro";
                 </select>
             </div>
             <div class="flex items-center justify-start">
-                <button id="generate-button" class="bg-persian-pink-500 hover:bg-persian-pink-700 text-white font-bold py-2 px-4 border bg-persian-pink-700 rounded">
+                <button id="generate-button" class="bg-slate-700 text-white hover:text-persian-pink-400  py-2 px-4 hover:border-persian-pink-400  rounded-lg">
                   Generate
                 </button>
             </div>   
@@ -89,8 +89,9 @@ import Layout from "../layouts/Layout.astro";
     
     <script >
         import {generateExercise} from "../scripts/exerciseManager"
-        import {renderAbcSong,playPauseTune} from "../scripts/exercisePlayer"
-
+        import {Player} from "../scripts/exercisePlayer"
+        
+        let myPlayer = new Player()
         const textarea = document.querySelector("textarea");
         const maxHeight = 400; // specify the maximum height in pixels
         
@@ -103,10 +104,12 @@ import Layout from "../layouts/Layout.astro";
             
         const generateButton = document.querySelector("#generate-button");
         generateButton.addEventListener("click", async ()=>{
-            console.log("generating exercise!")    
+            console.log("generating exercise!")
+            myPlayer.pauseTune()
+
             let new_song = await generateExercise('header')
             const notation = document.querySelector('#notation');
-            renderAbcSong(notation,new_song)
+            myPlayer.renderAbcSong(notation,new_song)
             console.log("rendered song")
             let msDiv = document.getElementById('music-sheet');
             msDiv.classList.remove('block');
@@ -141,12 +144,12 @@ import Layout from "../layouts/Layout.astro";
         const playButton = document.querySelector("#play-button");
         playButton.addEventListener("click",() => {
             console.log("play clicked!")
-            playPauseTune() 
+            myPlayer.playTune() 
         });
         const pauseButton = document.querySelector("#pause-button");
         pauseButton.addEventListener("click",() =>{
             console.log("pause clicked!")    
-            playPauseTune() 
+            myPlayer.pauseTune() 
         });
 
     </script>
