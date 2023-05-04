@@ -1,58 +1,19 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import InputFieldsComp from "../components/InputFields.astro";
 ---
 
 <Layout title="Student View">
     <section class="main-container flex flex-col justify-items-center mx-auto max-w-screen-md">
-        <h2 class="text-3xl">Student Mode</h2>
-        <div id="input-fields" class="flex flex-col sm:flex-row ">
-
-            <div id="meter-radio" class="items-center justify-center">
-                <label for="meter" class="block mb-2 text-sm font-medium">Select a meter:</label>
-                <div class="flex items-center mb-4">
-                    <input checked id="meter-radio-1" type="radio" value="" name="meter-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                    <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">4/4</label>
-                </div>
-                <div class="flex items-center">
-                    <input id="meter-radio-2" type="radio" value="" name="meter-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                    <label for="meter-radio-2" class="ml-2 text-sm font-mediu">3/4</label>
-                </div>
+        <div class="grid justify-items-center ">
+            <div class="rounded-t-lg bg-slate-700 px-6">
+                <h2 class="text-3xl text-persian-pink-400">Student Mode</h2>
             </div>
-
-            <div id="mode-radio" class="items-center justify-center">
-                <label for="keys" class="block mb-2 text-sm font-medium">Select a mode:</label>
-                <div class="flex items-center mb-4">
-                    <input checked id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                    <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Major</label>
-                </div>
-                <div class="flex items-center">
-                    <input id="default-radio-2" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                    <label for="default-radio-2" class="ml-2 text-sm font-mediu">Minor</label>
-                </div>
-            </div>
-            <div id="key-select" class="flex flex-col max-w">
-                <label for="keys" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select a Key:</label>
-                <select id="keys" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:bg-persian-pink-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option selected>Choose Key</option>
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="C">C</option>
-                <option value="D">D</option>
-                <option value="E">E</option>
-                <option value="F">F</option>
-                <option value="G">G</option>
-                </select>
-            </div>
-            <div class="flex items-center justify-start">
-                <button id="generate-button" class="bg-slate-700 text-white hover:text-persian-pink-400  py-2 px-4 hover:border-persian-pink-400  rounded-lg">
-                  Generate
-                </button>
-            </div>   
-            
-            
         </div>
+        <InputFieldsComp />
+
         
-        <div id="playback-buttons" class="flex ">
+        <div id="interactive-buttons" class="flex ">
             <button id="play-button" class="bg-persian-pink-500 hover:bg-persian-pink-700 text-white font-bold py-2 px-4 border bg-persian-pink-800 rounded">
                 Play
             </button>
@@ -61,23 +22,27 @@ import Layout from "../layouts/Layout.astro";
             </button>
         </div>
         <div id="music-fields" class="flex grid grid-cols-1 w-full">
-            Input Heard Pitches:
+            <div class="pl-4 pt-2">
+                <label class="text-persian-pink-50">Input Pitches:</label>
+            </div>
             <div id="abc-text-area" class="">
                 <textarea id="notation-input" cols="100" rows="12" spellcheck="false" class="w-full h-full"></textarea>
             </div>
-            <div id="playback-buttons" class="flex ">
+            <div id="interactive-buttons" class="flex ">
                 <button id="show-sheet-button" class="bg-persian-pink-500 hover:bg-persian-pink-700 text-white font-bold py-2 px-4 border bg-persian-pink-800 rounded">
                     Show Music Sheet
                 </button>
                 <button id="evaluate-button" class="bg-persian-pink-500 hover:bg-persian-pink-700 text-white font-bold py-2 px-4 border bg-persian-pink-800 rounded">
                     Evaluate
                 </button>
-                <div id="evalution-field"></div>
+                <div id="evalution-field" class="pl-4 pt-2 pb-2 text-persian-pink-400"></div>
             </div>
 
             <div id="music-sheet" class="hidden">
-                <label>Music Sheet</label>
-                <div id="notation" class="overflow-x-auto bg-persian-pink-100">
+                <div class="pl-4 pt-2 pb-2">
+                    <label class="text-persian-pink-50">Music Sheet:</label>
+                </div>
+                <div id="notation" class="overflow-x-auto bg-persian-pink-100 rounded-sm">
             </div>
             </div>
         </div>
@@ -157,37 +122,33 @@ import Layout from "../layouts/Layout.astro";
 
 <style>
 
-    #input-fields{
-        background-color: yellowgreen
-        
+
+    #interactive-buttons{
+        @apply bg-slate-600 rounded-md pl-4 pt-2 pb-2 my-5;
+
     }
 
-    #input-fields > div{
-        border-width: 1rem;
-        background-color: #c487e3;
+    #interactive-buttons > button { 
+      
+        @apply border-persian-pink-300 bg-slate-700  text-persian-pink-50 hover:text-persian-pink-400  py-2 px-4 border-2 hover:border-persian-pink-400/80  rounded-lg;
+    }
+    
+    #notation-input{
+        @apply bg-persian-pink-50
     }
 
-    #notation:first-child{
-        background: #c487e3;
-        width: 100%;
-        height: 100%;
-    }
-
-    #playback-buttons{
-        background-color: tomato;
-    }
 
     #abc-text-area{
         padding-block: 1em;
         padding-left: 1em;
         padding-right: 1em;
-        background-color: blueviolet;
+        @apply bg-slate-600 rounded-md;
         
     }
 
 
     #music-fields{
-        background-color: aqua;
+        @apply bg-slate-600 rounded-md;
     }
 
 </style>
