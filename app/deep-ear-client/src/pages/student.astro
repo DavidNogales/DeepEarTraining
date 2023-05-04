@@ -3,82 +3,188 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Student View">
-    <p>This is the Student view!</p>
-    <div class="flex">
-        <div class="col-span-8">
-            <textarea id="abc" class="col-span-8"></textarea>
-        </div>
-        <div  class="col-span-4">
-            <div id="paper"></div>
-        </div>
-    </div>
-    
-    <div class="buttons flex justifiy-center">
-        
-        <div id="audio">
-        </div>
-        <button class="activate-audio">Activate Audio</button>
-        <button class="start">Start</button>
-        <button class="show-editor">Show Editor</button>
-        <div id="warnings"></div>    
-    </div>
-    
-    <script>
-		import abcjs from "abcjs";
-        var abcString = "X:1\nT:Speed the Plough\nM:4/4\nC:Trad.\nK:G\n|:GABc dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|\n  GABc dedB|dedB dedB|c2ec B2dB|A2F2 G4:|\n|:g2gf gdBd|g2f2 e2d2|c2ec B2dB|c2A2 A2df|\n  g2gf g2Bd|g2f2 e2d2|c2ec B2dB|A2F2 G4:|\n";
-        var visualOptions = { responsive: 'resize' };
-        var visualObj = abcjs.renderAbc("paper", abcString, visualOptions);
-        var synthControl = new abcjs.synth.SynthController();
+    <section class="main-container flex flex-col justify-items-center mx-auto max-w-screen-md">
+        <h2 class="text-3xl">Student Mode</h2>
+        <div id="input-fields" class="flex flex-col sm:flex-row ">
 
-        document.querySelector(".activate-audio").addEventListener("click", activate);
-        function activate() {    
-            console.log("Activate audio clicked!")
-            if (abcjs.synth.supportsAudio()) {
-                var audioParams = { chordsOff: true };
-                console.log("Supports audio!")
-                var createSynth = new abcjs.synth.CreateSynth();
-                createSynth.init({ visualObj: visualObj[0] }).then(function () {
-                    synthControl.setTune(visualObj[0], false, audioParams).then(function () {
-                        console.log("Audio successfully loaded.")
-                        
-                    }).catch(function (error) {
-                        console.warn("Audio problem:", error);
-                    });
-                }).catch(function (error) {
-                    console.warn("Audio problem:", error);
-                });
-            } else {
-                console.log("audio is not supported on this browser");
-            };
-        }    
-        document.querySelector(".start").addEventListener("click", playTune);
-        function playTune(){
-            console.log("play tune!")
-            synthControl.play()
-        }
-        document.querySelector(".show-editor").addEventListener("click", showEditor);
-        function showEditor(){
-            console.log("Show Editor!")
-            var abc_editor = new abcjs.Editor("abc", { 
-                canvas_id: "paper", 
-                warnings_id:"warnings" 
-            });
-            const textarea = document.querySelector('#abc');
-            textarea.addEventListener('input', () => {
-                abc_editor.fireChanged();
-            });
-            textarea.innerHTML = abcString
-            abc_editor.fireChanged();
+            <div id="meter-radio" class="items-center justify-center">
+                <label for="meter" class="block mb-2 text-sm font-medium">Select a meter:</label>
+                <div class="flex items-center mb-4">
+                    <input checked id="meter-radio-1" type="radio" value="" name="meter-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">4/4</label>
+                </div>
+                <div class="flex items-center">
+                    <input id="meter-radio-2" type="radio" value="" name="meter-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="meter-radio-2" class="ml-2 text-sm font-mediu">3/4</label>
+                </div>
+            </div>
+
+            <div id="mode-radio" class="items-center justify-center">
+                <label for="keys" class="block mb-2 text-sm font-medium">Select a mode:</label>
+                <div class="flex items-center mb-4">
+                    <input checked id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Major</label>
+                </div>
+                <div class="flex items-center">
+                    <input id="default-radio-2" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="default-radio-2" class="ml-2 text-sm font-mediu">Minor</label>
+                </div>
+            </div>
+            <div id="key-select" class="flex flex-col max-w">
+                <label for="keys" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select a Key:</label>
+                <select id="keys" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:bg-persian-pink-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option selected>Choose Key</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+                <option value="E">E</option>
+                <option value="F">F</option>
+                <option value="G">G</option>
+                </select>
+            </div>
+            <div class="flex items-center justify-start">
+                <button id="generate-button" class="bg-persian-pink-500 hover:bg-persian-pink-700 text-white font-bold py-2 px-4 border bg-persian-pink-700 rounded">
+                  Generate
+                </button>
+            </div>   
+            
+            
+        </div>
+        
+        <div id="playback-buttons" class="flex ">
+            <button id="play-button" class="bg-persian-pink-500 hover:bg-persian-pink-700 text-white font-bold py-2 px-4 border bg-persian-pink-800 rounded">
+                Play
+            </button>
+            <button id="pause-button" class="bg-persian-pink-500 hover:bg-persian-pink-700 text-white font-bold py-2 px-4 border bg-persian-pink-800 rounded">
+                Pause
+            </button>
+        </div>
+        <div id="music-fields" class="flex grid grid-cols-1 w-full">
+            Input Heard Pitches:
+            <div id="abc-text-area" class="">
+                <textarea id="notation-input" cols="100" rows="12" spellcheck="false" class="w-full h-full"></textarea>
+            </div>
+            <div id="playback-buttons" class="flex ">
+                <button id="show-sheet-button" class="bg-persian-pink-500 hover:bg-persian-pink-700 text-white font-bold py-2 px-4 border bg-persian-pink-800 rounded">
+                    Show Music Sheet
+                </button>
+                <button id="evaluate-button" class="bg-persian-pink-500 hover:bg-persian-pink-700 text-white font-bold py-2 px-4 border bg-persian-pink-800 rounded">
+                    Evaluate
+                </button>
+                <div id="evalution-field"></div>
+            </div>
+
+            <div id="music-sheet" class="hidden">
+                <label>Music Sheet</label>
+                <div id="notation" class="overflow-x-auto bg-persian-pink-100">
+            </div>
+            </div>
+        </div>
+        <div>
+            <div id="warnings"></div>
+
+        </div>
+    </section>
+    
+    <script >
+        import {generateExercise} from "../scripts/exerciseManager"
+        import {renderAbcSong,playPauseTune} from "../scripts/exercisePlayer"
+
+        const textarea = document.querySelector("textarea");
+        const maxHeight = 400; // specify the maximum height in pixels
+        
+        const setTextAreaHeight = ()=>{
+            textarea.style.height = "auto";
+            textarea.style.height = Math.min(textarea.scrollHeight, maxHeight) + "px";
         }
         
-	</script>
+        textarea.addEventListener("input",setTextAreaHeight);
+            
+        const generateButton = document.querySelector("#generate-button");
+        generateButton.addEventListener("click", async ()=>{
+            console.log("generating exercise!")    
+            let new_song = await generateExercise('header')
+            const notation = document.querySelector('#notation');
+            renderAbcSong(notation,new_song)
+            console.log("rendered song")
+            let msDiv = document.getElementById('music-sheet');
+            msDiv.classList.remove('block');
+            msDiv.classList.add('hidden');
+        });
+
+        const notationInput = document.querySelector('#notation-input');
+        notationInput.addEventListener('input', () => {
+            //const notation = document.querySelector('#notation');
+            //console.log('notation input change!!!!!!!!!!!!!!')
+            //console.log(notationInput.value)
+            //renderAbcSong(notation, notationInput.value);
+            setTextAreaHeight()
+        });
+
+        const showSheetButton = document.querySelector('#show-sheet-button');
+        showSheetButton.addEventListener("click",() =>{
+            console.log("Show music sheet clicked!")    
+            let msDiv = document.getElementById('music-sheet');
+            msDiv.classList.remove('hidden');
+            msDiv.classList.add('block');
+        });
+
+        const evaluateButton = document.querySelector('#evaluate-button');
+        evaluateButton.addEventListener("click",() =>{
+            console.log("Show music sheet clicked!")    
+            let evalDiv = document.getElementById('evalution-field');
+            let accuracy = 0
+            evalDiv.innerText = 'Accuracy:'+accuracy+'%'
+        });
+
+        const playButton = document.querySelector("#play-button");
+        playButton.addEventListener("click",() => {
+            console.log("play clicked!")
+            playPauseTune() 
+        });
+        const pauseButton = document.querySelector("#pause-button");
+        pauseButton.addEventListener("click",() =>{
+            console.log("pause clicked!")    
+            playPauseTune() 
+        });
+
+    </script>
 </Layout>
 
 <style>
-    .abcjs-highlight {
-    fill: #0a9ecc;
+
+    #input-fields{
+        background-color: yellowgreen
+        
     }
-    .abcjs-cursor {
-    stroke: red;
+
+    #input-fields > div{
+        border-width: 1rem;
+        background-color: #c487e3;
     }
+
+    #notation:first-child{
+        background: #c487e3;
+        width: 100%;
+        height: 100%;
+    }
+
+    #playback-buttons{
+        background-color: tomato;
+    }
+
+    #abc-text-area{
+        padding-block: 1em;
+        padding-left: 1em;
+        padding-right: 1em;
+        background-color: blueviolet;
+        
+    }
+
+
+    #music-fields{
+        background-color: aqua;
+    }
+
 </style>
