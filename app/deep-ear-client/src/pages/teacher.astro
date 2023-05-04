@@ -68,15 +68,18 @@ const meter = []
         <div id="music-fields" class="flex grid grid-cols-1 w-full">
             Input Area:
             <div id="abc-text-area" class="">
-                <textarea id="notation-input" class="w-full h-full"></textarea>
+                <textarea id="notation-input" cols="60" rows="12" spellcheck="false" class="w-full h-full"></textarea>
             </div>
             <label>Music Sheet</label>
             <div id="notation" class="overflow-x-auto bg-persian-pink-100">
             </div>
         </div>
+        <div>
+            <div id="warnings"></div>
 
+        </div>
     </section>
- 
+
     <script client:load>
         const svg = document.querySelector("#notation svg");
         if (svg) {
@@ -91,8 +94,10 @@ const meter = []
 
     <script >
         import {generateExercise} from "../scripts/exerciseManager"
-        import {renderAbcSong,playPauseTune} from "../scripts/exercisePlayer"
-        
+        import {renderAbcSong,playPauseTune,setNewEditor} from "../scripts/exercisePlayer"
+        import abcjs from "abcjs";
+
+
         const textarea = document.querySelector("textarea");
         const maxHeight = 400; // specify the maximum height in pixels
         
@@ -100,7 +105,11 @@ const meter = []
             textarea.style.height = "auto";
             textarea.style.height = Math.min(textarea.scrollHeight, maxHeight) + "px";
         }
-        textarea.addEventListener("input",setTextAreaHeight );
+
+        console.log("asdasd")
+        setNewEditor('notation-input','notation','warnings')
+
+        textarea.addEventListener("input",setTextAreaHeight);
 
         const generateButton = document.querySelector("#generate-button");
         generateButton.addEventListener("click", async ()=>{
@@ -119,8 +128,10 @@ const meter = []
 
         const notationInput = document.querySelector('#notation-input');
         notationInput.addEventListener('input', () => {
-            const notation = document.querySelector('#notation');
-            renderAbcSong(notation, notationInput.value);
+            //const notation = document.querySelector('#notation');
+            //console.log('notation input change!!!!!!!!!!!!!!')
+            //console.log(notationInput.value)
+            //renderAbcSong(notation, notationInput.value);
             setTextAreaHeight()
         });
 
@@ -135,6 +146,8 @@ const meter = []
             console.log("pause clicked!")    
             playPauseTune() 
         });
+
+        
     </script>
 </Layout>
 
@@ -158,17 +171,16 @@ const meter = []
         height: 100%;
     }
 
-    svg {
-        background-color: yellow;
-    }
-
     #playback-buttons{
         background-color: tomato;
     }
 
     #abc-text-area{
         padding-block: 1em;
+        padding-left: 1em;
+        padding-right: 1em;
         background-color: blueviolet;
+         resize: none;
     }
 
     #music-fields{
