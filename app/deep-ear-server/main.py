@@ -2,6 +2,7 @@ import uvicorn
 from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
+from songGenerator import SongGenerator
 abc_song = """X:1
 T:Speed the Plough
 M:4/4
@@ -12,6 +13,8 @@ K:G
 |:g2gf gdBd|g2f2 e2d2|c2ec B2dB|c2A2 A2df|
   g2gf g2Bd|g2f2 e2d2|c2ec B2dB|A2F2 G4:|
     """
+
+my_song_generator = SongGenerator() 
 
 class Exercise(BaseModel):
     header: str
@@ -35,7 +38,8 @@ app.add_middleware(
 
 @app.post("/exercises/")
 async def create_exercise(exercise: Exercise):
-    exercise.body = example_exercises[0].body
+    #exercise.body = example_exercises[0].body
+    exercise.body = my_song_generator.get_random_song('C')
     return exercise
 
 @app.get("/data/")
