@@ -1,7 +1,7 @@
 import abcjs from "abcjs";
 
 //var abcString = "X:1\nT:Speed the Plough\nM:4/4\nC:Trad.\nK:G\ng2gf g2Bd|g2f2 e2d2|c2ec B2dB|A2F2 G4:|\n";
-//var visualOptions = { responsive: 'resize' };
+//var visualOptions = { responsive: 'resize',staffwidth:740, wrap:{ minSpacing: 1.8, maxSpacing: 2.7, preferredMeasuresPerLine: 4 } };
 var synthControl = new abcjs.synth.SynthController();
 
 export class Player{

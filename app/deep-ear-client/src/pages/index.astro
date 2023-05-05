@@ -3,20 +3,46 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout>
-	<h1>Welcome To Astro!</h1>
-	<h2>ABC Example</h2>
-	<div id="paper"></div>
-	<h2>Using Axios for retrieving data</h2>
-	<div id="abc_text"></div>
-	<div id="sheet"></div>
+	<section class="main-container flex flex-col justify-items-center mx-auto max-w-screen-md">
+		
+		<div class="flex flex-col sm:flex-row sm:text-4xl text-2xl justify-center mt-20 mb-20 bg-slate-700 bg-opacity-50 rounded-md p-8">
+			<h1 class="text-persian-pink-100">Welcome To Deep</h1>
+			<h1 class="text-persian-pink-500">Ear</h1>
+			<h1 class="text-persian-pink-100">Training!</h1>
+		</div>
+
+		<div id="paper" class="absolute -z-10"></div>
+		<div id='text-description' class="flex flex-col space-y-5 bg-slate-700 bg-opacity-50 rounded-md p-8">
+			<div class="text-persian-pink-100 sm:text-xl text-sm">
+				<p class="bg-slate-900 rounded-2xl p-10 ">
+					This website intends to provide 
+					a tool for generating melodic 
+					dictation exercises that follow 
+					a common chord progression. 
+					In this case the following 
+					progression:
+				</p>
+			</div>
+			<div class="grid justify-center ">
+				<div class="text-persian-pink-500 text-3xl bg-slate-900 rounded-t-md pt-2 px-2">I - I - IV - V</div>
+				<div class="text-persian-pink-500 text-3xl bg-slate-900 rounded-b-md pb-2 px-2">I - IV - V - I </div>
+			</div>
+		</div>
+		
+		<div id="abc_text" class="invisible"></div>
+		<div id="sheet" class="invisible"></div>
+
+	</section >
+
 	
 	<script>
 		import abcjs from "abcjs";
 		import axios from "axios";
 		const url = import.meta.env.PUBLIC_API_URL;
 		console.log("INDEX base url: "+url)
-		var visualOptions = {  };
-		var abcString = "X:1\nT:Speed the Plough\nM:4/4\nC:Trad.\nK:G\n|:GABc dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|\n  GABc dedB|dedB dedB|c2ec B2dB|A2F2 G4:|\n|:g2gf gdBd|g2f2 e2d2|c2ec B2dB|c2A2 A2df|\n  g2gf g2Bd|g2f2 e2d2|c2ec B2dB|A2F2 G4:|\n";
+		var visualOptions = {selectionColor:'#000000', staffwidth:740, wrap:{ minSpacing: 1.8, maxSpacing: 2.7, preferredMeasuresPerLine: 4 } };
+		//var abcString = "X:1\nT:Speed the Plough\nM:4/4\nC:Trad.\nK:G\n|:GABc dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|\n  GABc dedB|dedB dedB|c2ec B2dB|A2F2 G4:|\n|:g2gf gdBd|g2f2 e2d2|c2ec B2dB|c2A2 A2df|\n  g2gf g2Bd|g2f2 e2d2|c2ec B2dB|A2F2 G4:|\n";
+		var abcString = "X:1\nT:Speed the Plough\nM:4/4\nC:Trad.\nK:G\n|:GABc dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|GABc dedB|dedB dedB|c2ec B2dB|A2F2 G4:||:g2gf gdBd|g2f2 e2d2|c2ec B2dB|c2A2 A2df|g2gf g2Bd|g2f2 e2d2|c2ec B2dB|A2F2 G4:||:GABc dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|GABc dedB|dedB dedB|c2ec B2dB|A2F2 G4:||:g2gf gdBd|g2f2 e2d2|c2ec B2dB|c2A2 A2df|g2gf g2Bd|g2f2 e2d2|c2ec B2dB|A2F2 G4:|";
 		var visualObj = abcjs.renderAbc("paper", abcString, visualOptions);	
 		console.log("Hi!")
 
@@ -31,3 +57,8 @@ import Layout from "../layouts/Layout.astro";
 	</script>
 
 </Layout>
+
+<style>
+	
+
+</style>
