@@ -58,6 +58,7 @@ export class Player{
     }
 
     playTune(){
+        synthControl.setWarp(50)
         synthControl.play();
     }
 
