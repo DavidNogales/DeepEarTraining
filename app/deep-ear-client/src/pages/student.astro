@@ -26,7 +26,7 @@ import InputFieldsComp from "../components/InputFields.astro";
                 <label class="text-persian-pink-50">Input Pitches:</label>
             </div>
             <div id="abc-text-area" class="">
-                <textarea id="notation-input" cols="100" rows="12" spellcheck="false" class="w-full h-full"></textarea>
+                <textarea id="notation-input" cols="100" rows="12" spellcheck="false" class="w-full h-full selection:bg-slate-800 selection:text-persian-pink-500"></textarea>
             </div>
             <div id="interactive-buttons" class="flex ">
                 <button id="show-sheet-button" class="bg-persian-pink-500 hover:bg-persian-pink-700 text-white font-bold py-2 px-4 border bg-persian-pink-800 rounded">
@@ -39,7 +39,10 @@ import InputFieldsComp from "../components/InputFields.astro";
             </div>
 
             <div id="music-sheet" class="hidden">
-                <div id="song-pitches"></div>
+                <div class="pl-4 pt-2 pb-2 pr-4">
+                    <label class="text-persian-pink-50">Pitches:</label>
+                    <input type="text" id="song-pitches" class="w-full selection:bg-slate-800 selection:text-persian-pink-500 text-persian-pink-200 pl-4 pt-2 pb-2 pr-4 bg-slate-400" readonly>
+                </div>
                 <div class="pl-4 pt-2 pb-2">
                     <label class="text-persian-pink-50">Music Sheet:</label>
                 </div>
@@ -120,6 +123,7 @@ import InputFieldsComp from "../components/InputFields.astro";
             msDiv.classList.remove('block');
             msDiv.classList.add('hidden');
             current_song_pitches = extractAndConcatenatePitches(new_song)
+            document.querySelector('#song-pitches').value = current_song_pitches
         });
 
         const notationInput = document.querySelector('#notation-input');
@@ -148,7 +152,7 @@ import InputFieldsComp from "../components/InputFields.astro";
             accuracy = Math.round(accuracy)
             console.log(accuracy)
             evalDiv.innerText = 'Accuracy: '+accuracy+'%'
-            document.querySelector('#song-pitches').innerHTML = current_song_pitches;
+            //document.querySelector('#song-pitches').value = current_song_pitches;
         });
 
         const playButton = document.querySelector("#play-button");

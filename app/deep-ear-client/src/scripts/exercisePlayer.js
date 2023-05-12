@@ -6,7 +6,7 @@ var synthControl = new abcjs.synth.SynthController();
 
 export class Player{
     constructor(){
-        this.visualOptions = { responsive: 'resize' };
+        this.visualOptions = {selectionColor:'#ea4aa0', responsive: 'resize' };
     }
     setNewEditor(editAreaID,canvasID,warningsID){
         var editor = new abcjs.Editor(editAreaID, {
