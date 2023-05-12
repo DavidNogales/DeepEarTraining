@@ -19,6 +19,9 @@ my_song_generator = SongGenerator()
 class Exercise(BaseModel):
     header: str
     body: str = None
+    meter: str = None
+    mode: str = None
+    key: str = None
     #age: int
 
 example_exercises = {
@@ -38,8 +41,12 @@ app.add_middleware(
 
 @app.post("/exercises/")
 async def create_exercise(exercise: Exercise):
+    mode = exercise.mode
+    meter = exercise.meter
+    key = exercise.key
+    key = key if mode=='Major' else key+'m'
     #exercise.body = example_exercises[0].body
-    exercise.body = my_song_generator.get_random_song('C')
+    exercise.body = my_song_generator.get_random_song(song_key=key,song_meter=meter)
     return exercise
 
 @app.get("/data/")

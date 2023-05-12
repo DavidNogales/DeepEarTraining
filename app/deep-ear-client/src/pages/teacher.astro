@@ -75,12 +75,36 @@ const meter = []
 
         textarea.addEventListener("input",setTextAreaHeight);
 
+        function getSelectedValues() {
+            // Get selected meter
+            let meter = document.querySelector('input[name="meter-radio"]:checked').nextElementSibling.innerHTML;
+            
+            // Get selected mode
+            let mode = document.querySelector('input[name="default-radio"]:checked').nextElementSibling.innerHTML;
+            
+            // Get selected key
+            let keySelect = document.getElementById("keys");
+            let key = keySelect.options[keySelect.selectedIndex].value;
+            
+            // Check if key is selected
+            if (key === "Choose Key") {
+                alert("Please select a key.");
+                return;
+            }
+            
+            return { meter, mode, key };
+        }
+
         const generateButton = document.querySelector("#generate-button");
         generateButton.addEventListener("click", async ()=>{
             console.log("generating exercise!")
             myPlayer.pauseTune()
-            
-            let new_song = await generateExercise('header')
+            let selectedValues = getSelectedValues();
+            if (selectedValues === undefined) {
+                console.log("No key selected");
+                return;
+            }
+            let new_song = await generateExercise(selectedValues)
             const notation = document.querySelector('#notation');
             myPlayer = new Player()
             myPlayer.renderAbcSong(notation,new_song)
@@ -90,7 +114,7 @@ const meter = []
             setTextAreaHeight()
             console.log("rendered song")
 
-
+            
         });
 
         const notationInput = document.querySelector('#notation-input');

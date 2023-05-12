@@ -14,12 +14,13 @@
     "@astrojs/tailwind": "^3.1.1",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
-    "abcjs": "^6.1.9",
     "abc-notation-transposition": "1.0.3",
+    "abcjs": "^6.1.9",
     "astro": "^2.1.5",
     "axios": "^1.3.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "similarity": "^1.2.1",
     "tailwindcss": "^3.2.7"
   }
 }

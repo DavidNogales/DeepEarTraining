@@ -12,13 +12,15 @@ async function getExercise(data) {
     return lastExercise;
   }
   
-export async function generateExercise(exerciseHeader) {
+export async function generateExercise(selectedValues) {
     const postSchema = {
-        "header": exerciseHeader,
-        "body": "string"
-      }
+      "header": "",
+      "body": "string",
+      "meter": selectedValues.meter,
+      "mode": selectedValues.mode,
+      "key": selectedValues.key
+    }
     const lastExercise = await getExercise(postSchema);
     //abcjs.renderAbc(divID, abcNewString, visualOptions);
-    console.log(typeof(lastExercise));
     return lastExercise
 }
