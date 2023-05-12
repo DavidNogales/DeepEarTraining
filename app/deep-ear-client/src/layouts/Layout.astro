@@ -14,9 +14,9 @@ const {title = 'DeepEar Training'} = Astro.props as Props;
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{title}</title>
     </head>
-    <body class="flex flex-col  min-h-screen justify-between bg-slate-900">
+    <body class="relative flex flex-col  min-h-screen justify-between bg-slate-900">
         <Header class=""/>
         <slot />
-        <Footer class=""/>
+        <Footer class="absolute bottom-0 w-full"/>
     </body>
 </html>
