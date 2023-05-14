@@ -103,19 +103,28 @@ import InputFieldsComp from "../components/InputFields.astro";
             
             return { meter, mode, key };
         }
-
-
+        
+        const generateAnimation = document.querySelector("#generate-animation");
+        const generateLabel = document.querySelector("#generate-label");
         const generateButton = document.querySelector("#generate-button");
         generateButton.addEventListener("click", async ()=>{
+            // Disable the button
+            generateLabel.textContent = "Generating"
+            generateAnimation.classList.remove("invisible")
+            generateButton.disabled = true;
             console.log("generating exercise!")
             myPlayer.pauseTune()
-
             let selectedValues = getSelectedValues();
             if (selectedValues === undefined) {
                 console.log("No key selected");
                 return;
             }
+            
             let new_song = await generateExercise(selectedValues)
+            // Re-enable the button
+            generateButton.disabled = false;
+            generateAnimation.classList.add("invisible")
+            generateLabel.textContent = "Generate"
             const notation = document.querySelector('#notation');
             myPlayer.renderAbcSong(notation,new_song)
             console.log("rendered song")
@@ -170,7 +179,7 @@ import InputFieldsComp from "../components/InputFields.astro";
 </Layout>
 
 <style>
-
+    
 
     #interactive-buttons{
         @apply bg-slate-600 rounded-md pl-4 pt-2 pb-2 my-5;

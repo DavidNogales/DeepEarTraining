@@ -95,8 +95,13 @@ const meter = []
             return { meter, mode, key };
         }
 
+        const generateAnimation = document.querySelector("#generate-animation");
+        const generateLabel = document.querySelector("#generate-label");
         const generateButton = document.querySelector("#generate-button");
         generateButton.addEventListener("click", async ()=>{
+            generateLabel.textContent = "Generating"
+            generateAnimation.classList.remove("invisible")
+            generateButton.disabled = true;
             console.log("generating exercise!")
             myPlayer.pauseTune()
             let selectedValues = getSelectedValues();
@@ -105,6 +110,10 @@ const meter = []
                 return;
             }
             let new_song = await generateExercise(selectedValues)
+
+            generateButton.disabled = false;
+            generateAnimation.classList.add("invisible")
+            generateLabel.textContent = "Generate"
             const notation = document.querySelector('#notation');
             myPlayer = new Player()
             myPlayer.renderAbcSong(notation,new_song)
