@@ -1,48 +1,15 @@
-# DeepEarTraining
+# DeepEarTraining Training Lab
 
 A Deep Learning Based Tool for Ear Training
 
 ## Project Objective
 
-1. Train a model that generates a meaningful exercise of melodic dictation
-    - A meaningful exercise should follow basic harmony rules, a basic chord progression and be 8 bars long.
-
-    - The exercise should have a predetermined complexity (easy, medium, hard) in order to provide some sort of progression.
-
-2. Develop a web interface to interact with the model
+The main objective of the project is to generate melodic dictation exercises, the Nottingham Dataset has been used used for the training as it provides songs in the form of leadsheets (chords and melody).
 
 ## Training the model
 
-1. Choose dataset:
-    - Bach Chorales
-    - ABC folk dataset(repository)
-    - Make own dataset
-    - Other
+- The model used for the training stage is a copy of the repository [**nanoGPT**](https://github.com/karpathy/nanoGPT) made by Andrej Karpathy
 
-2. Choose dataset representation:
-    - data is only symbolic:
-        - intermediate:
-            - NoteSeq
-            - ABC notation
-        - final:
-            - one-hot encoding
+- The data is feed into the model the same way as the Shakespeare Dataset as seen in the description of the nanoGPT repository.
 
-3. Choose architecture:
-    - Simple model:
-        - RNN
-        - LSTM
-        - Transformer
-    - Complex model:
-        - MidiNet: CNN-GAN
-        - Anticipation-RNN: Constraint and Token RNN
-        - RL-Tuner: RNN-RL
-    - Also reuse other trained models? (Transfer Learning)
-
-    - Explore a "new" method?
-
-4. Experimentation:
-    - Experiment on several models at once or focus on a single one?
-    - Model evaluation
-        - Initial -> Automatic
-        - Final   -> Music Teachers
-5. Deploy model
+The outcome and the methodology followed for the experimentation phase is detailed in the report that can be found inside the corresponding folder in this repository.

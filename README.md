@@ -1,6 +1,6 @@
 # DeepEarTraining
 
-A Deep Learning Based Tool For Ear Training
+This repository holds the necessary files to generate the report for my Bachelor Degree thesis at the Facultat d’Informàtica de Barcelona (FIB).
 
 ## Directories
 
