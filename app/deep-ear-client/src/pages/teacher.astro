@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import InputFieldsComp from "../components/InputFields.astro";
+import "../styles/global.css";
 const keys = ['A','B','C','D', 'E', 'F', 'G' ]
 const meter = []
 
@@ -153,7 +154,7 @@ const meter = []
 
 
 <style>
-
+    @reference "../styles/global.css";
 
     #interactive-buttons{
         @apply bg-slate-600 rounded-md pl-4 pt-2 pb-2 my-5;
