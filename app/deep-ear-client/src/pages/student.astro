@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import InputFieldsComp from "../components/InputFields.astro";
 import "../styles/global.css";
+import melodies from "../assets/melodies.json";
 ---
 
 <Layout title="Student View">
@@ -56,12 +57,11 @@ import "../styles/global.css";
 
         </div>
     </section>
-    
-    <script >
-        import {generateExercise} from "../scripts/exerciseManager"
+
+<script>
+	//import {generateExercise} from "../scripts/exerciseManager"
         import {Player} from "../scripts/exercisePlayer"
         import similarity from "similarity"
-
         let myPlayer = new Player()
         const textarea = document.querySelector("textarea");
         const maxHeight = 400; // specify the maximum height in pixels
@@ -84,27 +84,27 @@ import "../styles/global.css";
             }
         }
         textarea.addEventListener("input",setTextAreaHeight);
-        
+
         function getSelectedValues() {
-            // Get selected meter
+        // Get selected meter
             let meter = document.querySelector('input[name="meter-radio"]:checked').nextElementSibling.innerHTML;
-            
+
             // Get selected mode
             let mode = document.querySelector('input[name="default-radio"]:checked').nextElementSibling.innerHTML;
-            
+
             // Get selected key
             let keySelect = document.getElementById("keys");
             let key = keySelect.options[keySelect.selectedIndex].value;
-            
+
             // Check if key is selected
             if (key === "Choose Key") {
                 alert("Please select a key.");
                 return;
             }
-            
+            console.log(meter, mode, key);
             return { meter, mode, key };
         }
-        
+
         const generateAnimation = document.querySelector("#generate-animation");
         const generateLabel = document.querySelector("#generate-label");
         const generateButton = document.querySelector("#generate-button");
@@ -120,8 +120,11 @@ import "../styles/global.css";
                 console.log("No key selected");
                 return;
             }
-            
-            let new_song = await generateExercise(selectedValues)
+	    const melodies = JSON.parse(sessionStorage.getItem('melodies'));
+	    console.log("loading local melodies!");
+	    console.log(melodies)
+	    //let new_song = await generateExercise(selectedValues)
+	    let new_song = melodies[0]['body'];
             // Re-enable the button
             generateButton.disabled = false;
             generateAnimation.classList.add("invisible")
@@ -147,7 +150,7 @@ import "../styles/global.css";
 
         const showSheetButton = document.querySelector('#show-sheet-button');
         showSheetButton.addEventListener("click",() =>{
-            console.log("Show music sheet clicked!")    
+            console.log("Show music sheet clicked!")
             let msDiv = document.getElementById('music-sheet');
             msDiv.classList.remove('hidden');
             msDiv.classList.add('block');
@@ -155,7 +158,7 @@ import "../styles/global.css";
 
         const evaluateButton = document.querySelector('#evaluate-button');
         evaluateButton.addEventListener("click",() =>{
-            console.log("Show music sheet clicked!")    
+            console.log("Show music sheet clicked!")
             let evalDiv = document.getElementById('evalution-field');
             const input_pitches = notationInput.value;
             let accuracy = similarity(current_song_pitches, input_pitches)*100
@@ -168,16 +171,21 @@ import "../styles/global.css";
         const playButton = document.querySelector("#play-button");
         playButton.addEventListener("click",() => {
             console.log("play clicked!")
-            myPlayer.playTune() 
+            myPlayer.playTune()
         });
         const pauseButton = document.querySelector("#pause-button");
         pauseButton.addEventListener("click",() =>{
-            console.log("pause clicked!")    
-            myPlayer.pauseTune() 
+            console.log("pause clicked!")
+            myPlayer.pauseTune()
         });
+        console.log("Loaded melody manager!")
 
     </script>
 </Layout>
+<script define:vars={{melodies}}>
+	console.log('Saving melodies locally...');
+	sessionStorage.setItem('melodies', JSON.stringify(melodies));
+</script>
 
 <style>
     @reference "../styles/global.css"; 

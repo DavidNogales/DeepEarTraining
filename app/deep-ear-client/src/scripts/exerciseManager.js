@@ -1,5 +1,3 @@
-import axios from "axios";
-
 const base_url = import.meta.env.PUBLIC_API_URL;
 console.log("base_URL:");
 console.log(base_url);

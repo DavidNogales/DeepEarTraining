@@ -16,6 +16,7 @@
     "@types/react-dom": "^19.0.3",
     "abc-notation-transposition": "1.0.5",
     "abcjs": "^6.4.4",
+    "alasql": "^4.6.2",
     "astro": "^5.2.5",
     "axios": "^1.7.9",
     "react": "^19.0.0",
