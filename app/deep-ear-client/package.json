@@ -10,14 +10,14 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/react": "^4.2.0",
+    "@astrojs/react": "^4.2.1",
     "@tailwindcss/vite": "^4.0.5",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
     "abc-notation-transposition": "1.0.5",
     "abcjs": "^6.4.4",
     "alasql": "^4.6.2",
-    "astro": "^5.2.5",
+    "astro": "^5.4.2",
     "axios": "^1.7.9",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

@@ -59,7 +59,7 @@ import melodies from "../assets/melodies.json";
     </section>
 
 <script>
-	//import {generateExercise} from "../scripts/exerciseManager"
+	import {generateLocalExercise} from "../scripts/exerciseManager"
         import {Player} from "../scripts/exercisePlayer"
         import similarity from "similarity"
         let myPlayer = new Player()
@@ -119,7 +119,10 @@ import melodies from "../assets/melodies.json";
             if (selectedValues === undefined) {
                 console.log("No key selected");
                 return;
-            }
+	    }
+	
+	    const melody = generateLocalExercise(selectedValues);
+	    console.log("local melody", melody)
 	    const melodies = JSON.parse(sessionStorage.getItem('melodies'));
 	    console.log("loading local melodies!");
 	    console.log(melodies)
