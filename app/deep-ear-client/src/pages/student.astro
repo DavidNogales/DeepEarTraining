@@ -2,7 +2,6 @@
 import Layout from "../layouts/Layout.astro";
 import InputFieldsComp from "../components/InputFields.astro";
 import "../styles/global.css";
-import melodies from "../assets/melodies.json";
 ---
 
 <Layout title="Student View">
@@ -15,13 +14,18 @@ import melodies from "../assets/melodies.json";
         <InputFieldsComp />
 
         
-        <div id="interactive-buttons" class="flex ">
+        <div id="interactive-buttons" class="flex items-center gap-2">
             <button id="play-button" class="bg-persian-pink-500 hover:bg-persian-pink-700 text-white font-bold py-2 px-4 border bg-persian-pink-800 rounded">
                 Play
             </button>
             <button id="pause-button" class="bg-persian-pink-500 hover:bg-persian-pink-700 text-white font-bold py-2 px-4 border bg-persian-pink-800 rounded">
                 Pause
             </button>
+            <div class="ml-2 flex items-center justify-center">
+                <div id="song-ready" class="text-persian-pink-400 font-bold hidden opacity-0 transition-opacity duration-500 text-center">
+                    Song is ready!
+                </div>
+            </div>
         </div>
         <div id="music-fields" class="flex grid grid-cols-1 w-full">
             <div class="pl-4 pt-2">
@@ -119,15 +123,9 @@ import melodies from "../assets/melodies.json";
             if (selectedValues === undefined) {
                 console.log("No key selected");
                 return;
-	    }
+            }
 	
-	    const melody = generateLocalExercise(selectedValues);
-	    console.log("local melody", melody)
-	    const melodies = JSON.parse(sessionStorage.getItem('melodies'));
-	    console.log("loading local melodies!");
-	    console.log(melodies)
-	    //let new_song = await generateExercise(selectedValues)
-	    let new_song = melodies[0]['body'];
+	        const new_song = await generateLocalExercise(selectedValues)
             // Re-enable the button
             generateButton.disabled = false;
             generateAnimation.classList.add("invisible")
@@ -140,6 +138,20 @@ import melodies from "../assets/melodies.json";
             msDiv.classList.add('hidden');
             current_song_pitches = extractAndConcatenatePitches(new_song)
             document.querySelector('#song-pitches').value = current_song_pitches
+
+            let songReady = document.getElementById("song-ready");
+            songReady.classList.remove("hidden", "opacity-0");
+            songReady.classList.add("opacity-100", "transition-opacity", "duration-500");
+
+
+            setTimeout(() => {
+                songReady.classList.add("opacity-0");
+                songReady.classList.remove("opacity-100");
+                setTimeout(() => {
+                    songReady.classList.add("hidden");
+                }, 500);
+            }, 5000);
+
         });
 
         const notationInput = document.querySelector('#notation-input');
@@ -185,10 +197,6 @@ import melodies from "../assets/melodies.json";
 
     </script>
 </Layout>
-<script define:vars={{melodies}}>
-	console.log('Saving melodies locally...');
-	sessionStorage.setItem('melodies', JSON.stringify(melodies));
-</script>
 
 <style>
     @reference "../styles/global.css"; 

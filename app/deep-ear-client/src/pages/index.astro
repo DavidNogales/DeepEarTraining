@@ -37,6 +37,21 @@ import "../styles/global.css";
 	
 	<script>
 		import abcjs from "abcjs";
+		async function saveMelodies() {
+			const url = '/melodies.json';
+
+			try {
+				const response = await fetch(url);
+				if (!response.ok) {
+					throw new Error(`HTTP error! Status: ${response.status}`);
+				}
+
+				const melodies = await response.json();
+				sessionStorage.setItem('melodies', JSON.stringify(melodies));
+			} catch (error) {
+				console.error('Error fetching the JSON file:', error);
+			}
+		}
 
 		var visualOptions = {selectionColor:'#000000', staffwidth:740, wrap:{ minSpacing: 1.8, maxSpacing: 2.7, preferredMeasuresPerLine: 4 } };
 		var abcString = "X:1\nT:Speed the Plough\nM:4/4\nC:Trad.\nK:G\n|:GABc dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|GABc dedB|dedB dedB|c2ec B2dB|A2F2 G4:||:g2gf gdBd|g2f2 e2d2|c2ec B2dB|c2A2 A2df|g2gf g2Bd|g2f2 e2d2|c2ec B2dB|A2F2 G4:||:GABc dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|GABc dedB|dedB dedB|c2ec B2dB|A2F2 G4:||:g2gf gdBd|g2f2 e2d2|c2ec B2dB|c2A2 A2df|g2gf g2Bd|g2f2 e2d2|c2ec B2dB|A2F2 G4:|";
@@ -44,7 +59,9 @@ import "../styles/global.css";
 		
 		
 		abcjs.renderAbc("*", abcString, visualOptions);	
-		
+
+		console.log('Saving melodies locally...');
+		saveMelodies();
 	</script>
 
 </Layout>

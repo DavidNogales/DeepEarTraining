@@ -58,7 +58,9 @@ async function loadLocalStorageData() {
 
 
 
-export async function runQuery() {
+export async function runQuery(key, meter, mode) {
+    
+    await new Promise((resolve) => setTimeout(resolve, 5000));
     try {
         if (!db) {
             console.error("DuckDB-Wasm is not initialized");
@@ -69,16 +71,15 @@ export async function runQuery() {
         console.log("Database connection established");
 
         // Query the newly created table
-        const result = await conn.query(`SELECT * FROM melodies`);
+        const result = await conn.query(`SELECT * FROM melodies WHERE key='${key}' AND meter='${meter}' AND mode='${mode}'`);
 
         // Convert to JSON format
-        const formattedResult = result.toArray().map((row) => row.toJSON());
-
-        console.log("Query result:", formattedResult);
+        const songs = result.toArray().map((row) => row.toJSON());
+	const song = songs[Math.floor(Math.random()*songs.length)]
         await conn.close();
         console.log("Database connection closed");
 
-        return formattedResult; // Returns actual data
+        return song; // Returns actual data
 
     } catch (error) {
         console.error("Error querying data:", error);

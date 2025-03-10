@@ -19,13 +19,18 @@ const meter = []
         <InputFieldsComp />
 
         
-        <div id="interactive-buttons" class="flex ">
+        <div id="interactive-buttons" class="flex items-center gap-2">
             <button id="play-button" class="bg-persian-pink-500 hover:bg-persian-pink-700 text-white font-bold py-2 px-4 border bg-persian-pink-800 rounded">
                 Play
             </button>
             <button id="pause-button" class="bg-persian-pink-500 hover:bg-persian-pink-700 text-white font-bold py-2 px-4 border bg-persian-pink-800 rounded">
                 Pause
             </button>
+            <div class="ml-2 flex items-center justify-center">
+                <div id="song-ready" class="text-persian-pink-400 font-bold hidden opacity-0 transition-opacity duration-500 text-center">
+                    Song is ready!
+                </div>
+            </div>
         </div>
         <div id="music-fields" class="flex grid grid-cols-1 w-full">
             <div class="pl-4 pt-2">
@@ -59,7 +64,7 @@ const meter = []
     </script>
 
     <script >
-        import {generateExercise} from "../scripts/exerciseManager"
+        import {generateLocalExercise} from "../scripts/exerciseManager"
         import {Player} from "../scripts/exercisePlayer"
 
         let myPlayer = new Player()
@@ -110,7 +115,7 @@ const meter = []
                 console.log("No key selected");
                 return;
             }
-            let new_song = await generateExercise(selectedValues)
+            let new_song = await generateLocalExercise(selectedValues)
 
             generateButton.disabled = false;
             generateAnimation.classList.add("invisible")
@@ -124,7 +129,18 @@ const meter = []
             setTextAreaHeight()
             console.log("rendered song")
 
-            
+            let songReady = document.getElementById("song-ready");
+            songReady.classList.remove("hidden", "opacity-0");
+            songReady.classList.add("opacity-100", "transition-opacity", "duration-500");
+
+
+            setTimeout(() => {
+                songReady.classList.add("opacity-0");
+                songReady.classList.remove("opacity-100");
+                setTimeout(() => {
+                    songReady.classList.add("hidden");
+                }, 500);
+            }, 5000);
         });
 
         const notationInput = document.querySelector('#notation-input');
