@@ -1,11 +1,11 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import imageUrl from '../images/bckg_ms.png';
 export interface Props{
     title?: string
 }
 const {title = 'DeepEar Training'} = Astro.props as Props;
+import "../styles/global.css";
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -13,9 +13,11 @@ const {title = 'DeepEar Training'} = Astro.props as Props;
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{title}</title>
+	<title>{title}</title>
+	<script src="https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@latest/+esm"></script>
+
     </head>
-    <body  style={{ backgroundImage: `url(${imageUrl})` }} class="relative flex flex-col  min-h-screen justify-between bg-slate-900">
+    <body class="bg-[url(/bckg_ms.png)] relative flex flex-col  min-h-screen justify-between bg-slate-900">
         <Header class=""/>
         <slot />
         <Footer class=""/>

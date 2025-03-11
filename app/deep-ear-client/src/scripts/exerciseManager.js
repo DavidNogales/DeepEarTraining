@@ -1,15 +1,31 @@
-import axios from "axios";
-
 const base_url = import.meta.env.PUBLIC_API_URL;
-console.log("base_URL:");
 console.log(base_url);
 const url = base_url+"/exercises"
-console.log("Hi! local script loaded!")
+import {runQuery} from "./db"
 
 async function getExercise(data) {
     const response = await axios.post(`${url}/`,data);
     const lastExercise = response.data.body;
     return lastExercise;
+  }
+
+  export function generateLocalExercise(melody_metadata) {
+    let key = melody_metadata.key
+    let mode = melody_metadata.mode
+    let meter = melody_metadata.meter
+    return runQuery(key, meter, mode)
+    .then((song_response) => {
+      if (song_response) {
+        return song_response.body; // Return the first item
+      } else {
+        console.warn("DuckDB result is empty.");
+        return null;
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching data from DuckDB:", error);
+      return null;
+    });
   }
   
 export async function generateExercise(selectedValues) {

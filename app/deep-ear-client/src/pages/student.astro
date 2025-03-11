@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import InputFieldsComp from "../components/InputFields.astro";
+import "../styles/global.css";
 ---
 
 <Layout title="Student View">
@@ -13,13 +14,18 @@ import InputFieldsComp from "../components/InputFields.astro";
         <InputFieldsComp />
 
         
-        <div id="interactive-buttons" class="flex ">
+        <div id="interactive-buttons" class="flex items-center gap-2">
             <button id="play-button" class="bg-persian-pink-500 hover:bg-persian-pink-700 text-white font-bold py-2 px-4 border bg-persian-pink-800 rounded">
                 Play
             </button>
             <button id="pause-button" class="bg-persian-pink-500 hover:bg-persian-pink-700 text-white font-bold py-2 px-4 border bg-persian-pink-800 rounded">
                 Pause
             </button>
+            <div class="ml-2 flex items-center justify-center">
+                <div id="song-ready" class="text-persian-pink-400 font-bold hidden opacity-0 transition-opacity duration-500 text-center">
+                    Song is ready!
+                </div>
+            </div>
         </div>
         <div id="music-fields" class="flex grid grid-cols-1 w-full">
             <div class="pl-4 pt-2">
@@ -55,12 +61,11 @@ import InputFieldsComp from "../components/InputFields.astro";
 
         </div>
     </section>
-    
-    <script >
-        import {generateExercise} from "../scripts/exerciseManager"
+
+<script>
+	import {generateLocalExercise} from "../scripts/exerciseManager"
         import {Player} from "../scripts/exercisePlayer"
         import similarity from "similarity"
-
         let myPlayer = new Player()
         const textarea = document.querySelector("textarea");
         const maxHeight = 400; // specify the maximum height in pixels
@@ -83,27 +88,27 @@ import InputFieldsComp from "../components/InputFields.astro";
             }
         }
         textarea.addEventListener("input",setTextAreaHeight);
-        
+
         function getSelectedValues() {
-            // Get selected meter
+        // Get selected meter
             let meter = document.querySelector('input[name="meter-radio"]:checked').nextElementSibling.innerHTML;
-            
+
             // Get selected mode
             let mode = document.querySelector('input[name="default-radio"]:checked').nextElementSibling.innerHTML;
-            
+
             // Get selected key
             let keySelect = document.getElementById("keys");
             let key = keySelect.options[keySelect.selectedIndex].value;
-            
+
             // Check if key is selected
             if (key === "Choose Key") {
                 alert("Please select a key.");
                 return;
             }
-            
+            console.log(meter, mode, key);
             return { meter, mode, key };
         }
-        
+
         const generateAnimation = document.querySelector("#generate-animation");
         const generateLabel = document.querySelector("#generate-label");
         const generateButton = document.querySelector("#generate-button");
@@ -119,8 +124,8 @@ import InputFieldsComp from "../components/InputFields.astro";
                 console.log("No key selected");
                 return;
             }
-            
-            let new_song = await generateExercise(selectedValues)
+	
+	        const new_song = await generateLocalExercise(selectedValues)
             // Re-enable the button
             generateButton.disabled = false;
             generateAnimation.classList.add("invisible")
@@ -133,6 +138,20 @@ import InputFieldsComp from "../components/InputFields.astro";
             msDiv.classList.add('hidden');
             current_song_pitches = extractAndConcatenatePitches(new_song)
             document.querySelector('#song-pitches').value = current_song_pitches
+
+            let songReady = document.getElementById("song-ready");
+            songReady.classList.remove("hidden", "opacity-0");
+            songReady.classList.add("opacity-100", "transition-opacity", "duration-500");
+
+
+            setTimeout(() => {
+                songReady.classList.add("opacity-0");
+                songReady.classList.remove("opacity-100");
+                setTimeout(() => {
+                    songReady.classList.add("hidden");
+                }, 500);
+            }, 5000);
+
         });
 
         const notationInput = document.querySelector('#notation-input');
@@ -146,7 +165,7 @@ import InputFieldsComp from "../components/InputFields.astro";
 
         const showSheetButton = document.querySelector('#show-sheet-button');
         showSheetButton.addEventListener("click",() =>{
-            console.log("Show music sheet clicked!")    
+            console.log("Show music sheet clicked!")
             let msDiv = document.getElementById('music-sheet');
             msDiv.classList.remove('hidden');
             msDiv.classList.add('block');
@@ -154,7 +173,7 @@ import InputFieldsComp from "../components/InputFields.astro";
 
         const evaluateButton = document.querySelector('#evaluate-button');
         evaluateButton.addEventListener("click",() =>{
-            console.log("Show music sheet clicked!")    
+            console.log("Show music sheet clicked!")
             let evalDiv = document.getElementById('evalution-field');
             const input_pitches = notationInput.value;
             let accuracy = similarity(current_song_pitches, input_pitches)*100
@@ -167,19 +186,20 @@ import InputFieldsComp from "../components/InputFields.astro";
         const playButton = document.querySelector("#play-button");
         playButton.addEventListener("click",() => {
             console.log("play clicked!")
-            myPlayer.playTune() 
+            myPlayer.playTune()
         });
         const pauseButton = document.querySelector("#pause-button");
         pauseButton.addEventListener("click",() =>{
-            console.log("pause clicked!")    
-            myPlayer.pauseTune() 
+            console.log("pause clicked!")
+            myPlayer.pauseTune()
         });
+        console.log("Loaded melody manager!")
 
     </script>
 </Layout>
 
 <style>
-    
+    @reference "../styles/global.css"; 
 
     #interactive-buttons{
         @apply bg-slate-600 rounded-md pl-4 pt-2 pb-2 my-5;
