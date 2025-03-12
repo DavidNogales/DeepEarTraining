@@ -6,6 +6,7 @@ export interface Props{
 }
 const {title = 'DeepEar Training'} = Astro.props as Props;
 import "../styles/global.css";
+const base = import.meta.env.BASE_URL;
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -13,11 +14,13 @@ import "../styles/global.css";
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>{title}</title>
-	<script src="https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@latest/+esm"></script>
+        <title>{title}</title>
+        <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`}>
+        <script src="https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@latest/+esm"></script>
 
     </head>
-    <body class="bg-[url(DeepEarTraining/bckg_ms.png)] relative flex flex-col  min-h-screen justify-between bg-slate-900">
+    <body style={`background-image: url('${base}/bckg_ms.png')`}
+    class="relative flex flex-col min-h-screen justify-between bg-slate-900 bg-cover bg-center bg-no-repeat">
         <Header class=""/>
         <slot />
         <Footer class=""/>
